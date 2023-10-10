@@ -18,6 +18,7 @@ public:
     void applyForce(Vect2D force);
     void updatePos();
     void applyGravity(PhysicsObj *other);
+    void applyElasticCollision(PhysicsObj *other);
 };
 
 

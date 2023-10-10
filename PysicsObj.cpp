@@ -26,3 +26,16 @@ void PhysicsObj::applyGravity(PhysicsObj *other) {
     other->applyForce(-gravityForce);
 }
 
+void PhysicsObj::applyElasticCollision(PhysicsObj *other) {
+    double distance = position.distanceTo(other->position);
+    if (distance >= radius + other->radius){
+        return;
+    }
+
+    // applying simple collision
+    double intersect = radius+other->radius - distance;
+    Vect2D translation = (other->position.normalVectTo(position, distance) * intersect) / 2;
+    position += translation;
+    other->position += -translation;
+}
+
