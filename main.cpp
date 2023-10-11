@@ -8,7 +8,7 @@ int main() {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_CreateWindowAndRenderer(700, 700, 0, &window, &renderer);
 
-    PhysicsObj obj1 = {.position={.x=50, .y=50}, .velocity={.x=2, .y=2}, .radius=30, .mass=20e12, .timeInterval=0.033};
+    PhysicsObj obj1 = {.position={.x=50, .y=130}, .velocity={.x=10, .y=0}, .radius=30, .mass=20e12, .timeInterval=0.033};
     PhysicsObj obj2 = {.position={.x=150, .y=150}, .velocity={.x=0, .y=0}, .radius=30, .mass=20e12, .timeInterval=0.033};
 
 

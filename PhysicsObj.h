@@ -5,7 +5,7 @@
 #ifndef COSMONAUT_PHYSICSOBJ_H
 #define COSMONAUT_PHYSICSOBJ_H
 
-#include "Vect2D.cpp"
+#include "geometry/Vect2D.h"
 
 class PhysicsObj {
 public:

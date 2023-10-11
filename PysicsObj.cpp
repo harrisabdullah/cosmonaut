@@ -3,6 +3,7 @@
 //
 
 #include "PhysicsObj.h"
+#include <iostream>
 
 double const G = 6.67e-11;
 
@@ -28,14 +29,33 @@ void PhysicsObj::applyGravity(PhysicsObj *other) {
 
 void PhysicsObj::applyElasticCollision(PhysicsObj *other) {
     double distance = position.distanceTo(other->position);
-    if (distance >= radius + other->radius){
+    if (distance > radius + other->radius){
         return;
     }
-
     // applying simple collision
     double intersect = radius+other->radius - distance;
     Vect2D translation = (other->position.normalVectTo(position, distance) * intersect) / 2;
     position += translation;
     other->position += -translation;
+
+    // applying elastic collision
+    Vect2D relativeVelocity = velocity - other->velocity;
+    double relativeVelocityMag = relativeVelocity.mag();
+    Vect2D CollisionDirection = relativeVelocity.normalise();
+
+    Vect2D othersDirection = position.normalVectTo(other->position, distance);
+    double otherAngle = CollisionDirection.angleBetween(othersDirection);
+    double thisAngle = M_PI/2 - otherAngle;
+
+    double cosCotSin = cos(otherAngle)+sin(otherAngle)*(1/tan(thisAngle));
+    double otherVelocityMag = relativeVelocityMag / cosCotSin;
+    double thisVelocityMag = (relativeVelocityMag*sin(otherAngle)*(1/sin(thisAngle))) / cosCotSin;
+
+    double thisTrueAngle = position.y > other->position.y? thisAngle : 2*M_PI-thisAngle;
+    double otherTrueAngle = position.y > other->position.y? 2*M_PI-otherAngle : otherAngle;
+
+    velocity += CollisionDirection.rotate(thisTrueAngle)*thisVelocityMag + other->velocity;
+    other->velocity = CollisionDirection.rotate(otherTrueAngle)*otherVelocityMag;
+    std::cout << velocity.x << "\n";
 }
 
