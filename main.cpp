@@ -8,8 +8,8 @@ int main() {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_CreateWindowAndRenderer(700, 700, 0, &window, &renderer);
 
-    PhysicsObj obj1 = {.position={.x=50, .y=130}, .velocity={.x=10, .y=0}, .radius=30, .mass=20e12, .timeInterval=0.033};
-    PhysicsObj obj2 = {.position={.x=150, .y=150}, .velocity={.x=0, .y=0}, .radius=30, .mass=20e12, .timeInterval=0.033};
+    PhysicsObj obj1 = {.position={.x=50, .y=160}, .velocity={.x=60, .y=0}, .radius=20, .mass=20e12, .timeInterval=0.033};
+    PhysicsObj obj2 = {.position={.x=150, .y=150}, .velocity={.x=20, .y=20}, .radius=20, .mass=20e12, .timeInterval=0.033};
 
 
     bool run = true;
@@ -30,8 +30,8 @@ int main() {
         obj1.updatePos();
         obj2.updatePos();
 
-        SDL_RenderDrawPoint(renderer, obj1.position.x, obj1.position.y);
-        SDL_RenderDrawPoint(renderer, obj2.position.x, obj2.position.y);
+        obj1.draw(renderer);
+        obj2.draw(renderer);
 
         SDL_RenderPresent(renderer);
         SDL_Delay(30);

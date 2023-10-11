@@ -6,6 +6,7 @@
 #define COSMONAUT_PHYSICSOBJ_H
 
 #include "geometry/Vect2D.h"
+#include <SDL2/SDL.h>
 
 class PhysicsObj {
 public:
@@ -19,6 +20,7 @@ public:
     void updatePos();
     void applyGravity(PhysicsObj *other);
     void applyElasticCollision(PhysicsObj *other);
+    void draw(SDL_Renderer *renderer);
 };
 
 

@@ -53,7 +53,22 @@ void PhysicsObj::applyElasticCollision(PhysicsObj *other) {
     double thisTrueAngle = position.y > other->position.y? thisAngle : 2*M_PI-thisAngle;
     double otherTrueAngle = position.y > other->position.y? 2*M_PI-otherAngle : otherAngle;
 
-    velocity += CollisionDirection.rotate(thisTrueAngle)*thisVelocityMag + other->velocity;
-    other->velocity = CollisionDirection.rotate(otherTrueAngle)*otherVelocityMag;
+    velocity = CollisionDirection.rotate(thisTrueAngle)*thisVelocityMag + other->velocity;
+    other->velocity += CollisionDirection.rotate(otherTrueAngle)*otherVelocityMag;
+}
+
+void PhysicsObj::draw(SDL_Renderer *renderer) {
+    int intRadius = static_cast<int>(radius);
+    int intPosX = static_cast<int>(position.x);
+    int intPosY = static_cast<int>(position.y);
+
+    for (int x = intPosX-intRadius; x < intPosX+intRadius; x++){
+        for (int y = intPosY-intRadius; y < intPosY+intRadius; y++){
+            Vect2D pos = {.x=static_cast<double>(x), .y=static_cast<double>(y)};
+            if (position.distanceTo(pos) < radius) {
+                SDL_RenderDrawPoint(renderer, x, y);
+            }
+        }
+    }
 }
 
