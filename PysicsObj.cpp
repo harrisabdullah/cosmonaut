@@ -3,7 +3,6 @@
 //
 
 #include "PhysicsObj.h"
-#include <iostream>
 
 double const G = 6.67e-11;
 
@@ -56,6 +55,5 @@ void PhysicsObj::applyElasticCollision(PhysicsObj *other) {
 
     velocity += CollisionDirection.rotate(thisTrueAngle)*thisVelocityMag + other->velocity;
     other->velocity = CollisionDirection.rotate(otherTrueAngle)*otherVelocityMag;
-    std::cout << velocity.x << "\n";
 }
 
