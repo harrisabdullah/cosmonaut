@@ -72,6 +72,10 @@ struct Vect2D {
             return 0;
         }
 
+        if (temp <= -1){
+            return 0;
+        }
+
         return acos(temp);
     }
 

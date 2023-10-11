@@ -44,6 +44,13 @@ void PhysicsObj::applyElasticCollision(PhysicsObj *other) {
 
     Vect2D othersDirection = position.normalVectTo(other->position, distance);
     double otherAngle = CollisionDirection.angleBetween(othersDirection);
+
+    if (otherAngle == 0){
+        other->velocity = velocity;
+        velocity = {.x=0, .y=0};
+        return;
+    }
+
     double thisAngle = M_PI/2 - otherAngle;
 
     double cosCotSin = cos(otherAngle)+sin(otherAngle)*(1/tan(thisAngle));
